@@ -1,13 +1,13 @@
 
-import { useState } from 'react';
-import './Message.css'
+
+import style from './Message.module.css'
 
 export const Message = (props) => {
 
 
 	return (
 		<>
-			<ul>
+			<ul className={style.message}>
 				{props.users.map(el => {
 					return <li key={el.id} >
 						<p>Name: {el.name}</p>
