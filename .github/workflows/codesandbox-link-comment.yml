@@ -9,8 +9,10 @@ on:
 
 jobs:
   codesandbox-comment:
+    permissions:
+      actions: write
+      pull-requests: write
     name: Add codesandbox link comment
-    permissions: write-all
     runs-on: ubuntu-latest
     steps:
       - uses: mshick/add-pr-comment@v1
