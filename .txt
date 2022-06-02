@@ -1,5 +1,5 @@
 {
-	"name": "gb_1992",
+	"name": "react-learning",
 	"version": "0.1.0",
 	"private": true,
 	"homepage": "https://andrewkaplenkov.github.io/gb_react/",
@@ -49,6 +49,7 @@
 	},
 	"dependencies": {
 		"@babel/plugin-transform-runtime": "^7.18.2",
+		"gh-pages": "^4.0.0",
 		"react": "^18.1.0",
 		"react-dom": "^18.1.0"
 	}
