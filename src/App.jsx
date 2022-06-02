@@ -1,28 +1,37 @@
-import { Message } from './components/Message/Message';
-import { Input } from './components/Input/Input';
-import { Counter } from './components/Counter/Counter';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { MessageList as Message } from './components/Message/MessageList';
+import { Form } from './components/Form/Form';
+import { author as AUTHOR } from './constants';
 
 export const App = () => {
-  const arr = [
-    { id: 0, name: 'Abdullah', age: 24 },
-    { id: 1, name: 'Sarah', age: 19 },
-    { id: 2, name: 'Cindy', age: 22 },
-  ];
+	const [messages, setMessages] = useState([]);
 
-  const [show, setShow] = useState(false);
-  const handleShow = () => {
-    setShow(!show);
-  };
+	const addMessage = (newMessage) => {
+		setMessages([...messages, newMessage]);
+	};
 
-  return (
-    <>
-      <button onClick={handleShow}>{show ? 'Show list' : 'Hide'}</button>
-      {show || <Message users={arr} />}
-      <hr />
-      <Input />
-      <hr />
-      <Counter />
-    </>
-  );
+	useEffect(() => {
+		if (
+			messages.length &&
+			messages[messages.length - 1].author === AUTHOR.user
+		) {
+			const timeOut = setTimeout(() => {
+				addMessage({
+					author: AUTHOR.bot,
+					text: 'response from BOT',
+				});
+			}, 1000);
+
+			return () => {
+				clearTimeout(timeOut);
+			};
+		}
+	}, [messages]);
+
+	return (
+		<>
+			<Message messages={messages} />
+			<Form addMessage={addMessage} />
+		</>
+	);
 };
