@@ -3,35 +3,40 @@ import { MessageList as Message } from './components/Message/MessageList';
 import { Form } from './components/Form/Form';
 import { author as AUTHOR } from './constants';
 
+const defaultMessages = [{
+	author: AUTHOR.user,
+	text: 'Test'
+}]
+
 export const App = () => {
-  const [messages, setMessages] = useState([]);
+	const [messages, setMessages] = useState(defaultMessages);
 
-  const addMessage = (newMessage) => {
-    setMessages([...messages, newMessage]);
-  };
+	const addMessage = (newMessage) => {
+		setMessages([...messages, newMessage]);
+	};
 
-  useEffect(() => {
-    if (
-      messages.length &&
-      messages[messages.length - 1].author === AUTHOR.user
-    ) {
-      const timeOut = setTimeout(() => {
-        addMessage({
-          author: AUTHOR.bot,
-          text: 'response from BOT',
-        });
-      }, 1000);
+	useEffect(() => {
+		if (
+			messages.length &&
+			messages[messages.length - 1].author === AUTHOR.user
+		) {
+			const timeOut = setTimeout(() => {
+				addMessage({
+					author: AUTHOR.bot,
+					text: 'response from BOT',
+				});
+			}, 1000);
 
-      return () => {
-        clearTimeout(timeOut);
-      };
-    }
-  }, [messages]);
+			return () => {
+				clearTimeout(timeOut);
+			};
+		}
+	}, [messages]);
 
-  return (
-    <>
-      <Message messages={messages} />
-      <Form addMessage={addMessage} />
-    </>
-  );
+	return (
+		<>
+			<Message messages={messages} />
+			<Form addMessage={addMessage} />
+		</>
+	);
 };
