@@ -3,9 +3,15 @@ import { MessageList as Message } from './components/Message/MessageList';
 import { Form } from './components/Form/Form';
 import { author as AUTHOR } from './constants';
 
+const defaultMessages = [
+	{
+		author: AUTHOR.user,
+		text: 'TEST MESSAGE'
+	}
+]
 
 export const App = () => {
-	const [messages, setMessages] = useState([]);
+	const [messages, setMessages] = useState(defaultMessages);
 
 	const addMessage = (newMessage) => {
 		setMessages([...messages, newMessage]);
