@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
-import { MessageList as Message } from './components/Message/MessageList';
+import { MessageList } from './components/Message/MessageList';
 import { Form } from './components/Form/Form';
 import { author as AUTHOR } from './constants';
+import { FC } from 'react';
+import { Message } from './common-types';
 
 const defaultMessages = [
 	{
@@ -10,10 +12,10 @@ const defaultMessages = [
 	},
 ];
 
-export const App = () => {
-	const [messages, setMessages] = useState(defaultMessages);
+export const App: FC = () => {
+	const [messages, setMessages] = useState<Message[]>(defaultMessages);
 
-	const addMessage = (newMessage) => {
+	const addMessage = (newMessage: Message) => {
 		setMessages([...messages, newMessage]);
 	};
 
@@ -37,7 +39,7 @@ export const App = () => {
 
 	return (
 		<>
-			<Message messages={messages} />
+			<MessageList messages={messages} />
 			<Form addMessage={addMessage} />
 		</>
 	);
