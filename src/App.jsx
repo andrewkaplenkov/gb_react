@@ -6,9 +6,9 @@ import { author as AUTHOR } from './constants';
 const defaultMessages = [
 	{
 		author: AUTHOR.user,
-		text: 'TEST MESSAGE'
-	}
-]
+		text: 'TEST MESSAGE',
+	},
+];
 
 export const App = () => {
 	const [messages, setMessages] = useState(defaultMessages);
