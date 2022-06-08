@@ -6,41 +6,41 @@ import { FC } from 'react';
 import { Message } from './common-types';
 
 const defaultMessages = [
-	{
-		author: AUTHOR.user,
-		text: 'TEST MESSAGE',
-	},
+  {
+    author: AUTHOR.user,
+    text: 'TEST MESSAGE',
+  },
 ];
 
 export const App: FC = () => {
-	const [messages, setMessages] = useState<Message[]>(defaultMessages);
+  const [messages, setMessages] = useState<Message[]>(defaultMessages);
 
-	const addMessage = (newMessage: Message) => {
-		setMessages([...messages, newMessage]);
-	};
+  const addMessage = (newMessage: Message) => {
+    setMessages([...messages, newMessage]);
+  };
 
-	useEffect(() => {
-		if (
-			messages.length &&
-			messages[messages.length - 1].author === AUTHOR.user
-		) {
-			const timeOut = setTimeout(() => {
-				addMessage({
-					author: AUTHOR.bot,
-					text: 'response from BOT',
-				});
-			}, 1000);
+  useEffect(() => {
+    if (
+      messages.length &&
+      messages[messages.length - 1].author === AUTHOR.user
+    ) {
+      const timeOut = setTimeout(() => {
+        addMessage({
+          author: AUTHOR.bot,
+          text: 'response from BOT',
+        });
+      }, 1000);
 
-			return () => {
-				clearTimeout(timeOut);
-			};
-		}
-	}, [messages]);
+      return () => {
+        clearTimeout(timeOut);
+      };
+    }
+  }, [messages]);
 
-	return (
-		<>
-			<MessageList messages={messages} />
-			<Form addMessage={addMessage} />
-		</>
-	);
+  return (
+    <>
+      <MessageList messages={messages} />
+      <Form addMessage={addMessage} />
+    </>
+  );
 };

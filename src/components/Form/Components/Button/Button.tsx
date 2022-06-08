@@ -1,16 +1,18 @@
-import style from './Button.module.css';
+
 import { FC } from 'react';
+import ButtonEl from '@mui/material/Button';
+import SendIcon from '@mui/icons-material/Send';
 
 interface ButtonProps {
-	click: () => void
+	click: () => void;
 }
 
 export const Button: FC<ButtonProps> = ({ click }) => (
-	<>
-		<button
-			onClick={click}
-			className={style.button}>
-			Send message
-		</button>
-	</>
+	<ButtonEl
+		onClick={click}
+		variant="contained"
+		endIcon={<SendIcon />}
+	>
+		Send message
+	</ButtonEl>
 );

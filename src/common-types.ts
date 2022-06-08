@@ -1,9 +1,9 @@
 export enum AUTHORS {
-	USER = 'USER',
-	BOT = 'BOT'
+  USER = 'USER',
+  BOT = 'BOT',
 }
 
 export interface Message {
-	author: AUTHORS,
-	text: string
+  author: AUTHORS;
+  text: string;
 }
