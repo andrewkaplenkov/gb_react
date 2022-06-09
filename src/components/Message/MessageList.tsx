@@ -10,40 +10,40 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 
 interface MessageListProps {
-	messages: Message[];
+  messages: Message[];
 }
 
 export const MessageList: FC<MessageListProps> = ({ messages }) => (
-	<List
-		className={style.messageBlock}
-		sx={{
-			backgroundColor: 'primary.light',
-		}}
-	>
-		{messages.map((el, index) => (
-			<>
-				<ListItem key={index} alignItems="flex-start">
-					<ListItemAvatar>
-						<Avatar alt="User" />
-					</ListItemAvatar>
-					<ListItemText
-						primary={
-							<>
-								<Typography
-									sx={{ display: 'inline' }}
-									component="span"
-									variant="body2"
-									color="text.primary"
-								>
-									{el.author}:
-								</Typography>
-								{el.text}
-							</>
-						}
-					/>
-				</ListItem>
-				<Divider variant="inset" component="li" />
-			</>
-		))}
-	</List>
+  <List
+    className={style.messageBlock}
+    sx={{
+      backgroundColor: 'primary.light',
+    }}
+  >
+    {messages.map((el, index) => (
+      <>
+        <ListItem key={index} alignItems="flex-start">
+          <ListItemAvatar>
+            <Avatar alt="User" />
+          </ListItemAvatar>
+          <ListItemText
+            primary={
+              <>
+                <Typography
+                  sx={{ display: 'inline' }}
+                  component="span"
+                  variant="body2"
+                  color="text.primary"
+                >
+                  {el.author}:
+                </Typography>
+                {el.text}
+              </>
+            }
+          />
+        </ListItem>
+        <Divider variant="inset" component="li" />
+      </>
+    ))}
+  </List>
 );
