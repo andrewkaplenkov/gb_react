@@ -1,4 +1,5 @@
 import React from 'react';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 import { Button } from './Button';
 
@@ -8,18 +9,12 @@ export default {
   },
   component: Button,
   title: 'MyComponents/Button',
-};
+} as ComponentMeta<typeof Button>;
 
-const Template = (args) => <Button {...args} />;
+const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
 
 export const Primary = Template.bind({});
-Primary.args = {
-  disabled: false,
-  label: 'Send message',
-};
+Primary.args = {};
 
 export const Disabled = Template.bind({});
-Disabled.args = {
-  disabled: true,
-  label: 'Button disabled',
-};
+Disabled.args = {};

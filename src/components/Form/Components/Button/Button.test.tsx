@@ -7,17 +7,12 @@ import { Button } from './Button';
 
 describe('Button', () => {
   it('render button component', () => {
-    render(<Button label="Send message" />);
-  });
-
-  it('render component with text', () => {
-    render(<Button label="Send message" />);
-    expect(screen.getByText('Send message')).toBeInTheDocument();
+    render(<Button click={() => null} />);
   });
 
   it('button click', async () => {
     const handle = jest.fn();
-    render(<Button click={handle} label="Send message" />);
+    render(<Button click={handle} />);
     await userEvent.click(screen.getByRole('button'));
     expect(handle).toHaveBeenCalledTimes(1);
   });
