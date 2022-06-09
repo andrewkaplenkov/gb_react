@@ -18,10 +18,11 @@ export const MessageList: FC<MessageListProps> = ({ messages }) => (
 		className={style.messageBlock}
 		sx={{
 			backgroundColor: 'primary.light',
-		}}>
-		{messages.map((el, idx) => (
+		}}
+	>
+		{messages.map((el, index) => (
 			<>
-				<ListItem key={idx} alignItems="flex-start">
+				<ListItem key={index} alignItems="flex-start">
 					<ListItemAvatar>
 						<Avatar alt="User" />
 					</ListItemAvatar>

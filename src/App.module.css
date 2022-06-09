@@ -1,0 +1,8 @@
+.wrapper {
+	display: flex;
+}
+
+.msgWrap {
+	display: flex;
+	flex-direction: column;
+}

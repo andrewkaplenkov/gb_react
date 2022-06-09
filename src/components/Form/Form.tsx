@@ -4,8 +4,7 @@ import style from './Form.module.css';
 import { FC } from 'react';
 import { AUTHORS, Message } from 'src/common-types';
 import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box'
-
+import Box from '@mui/material/Box';
 
 interface FormProps {
 	addMessage: (msg: Message) => void;
@@ -31,7 +30,6 @@ export const Form: FC<FormProps> = ({ addMessage }) => {
 			data-testid="form"
 			className={style.form}
 			onSubmit={handleSubmit}
-
 		>
 			<TextField
 				id="outlined-basic"
@@ -42,10 +40,9 @@ export const Form: FC<FormProps> = ({ addMessage }) => {
 				className={style.input}
 				value={text}
 				size="small"
+				autoFocus
 			/>
-			<Button
-				click={buttonClick}
-			/>
+			<Button click={buttonClick} />
 		</Box>
 	);
 };
