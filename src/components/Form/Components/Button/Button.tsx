@@ -1,18 +1,16 @@
 import { FC } from 'react';
 import ButtonEl from '@mui/material/Button';
-import SendIcon from '@mui/icons-material/Send';
 
 interface ButtonProps {
-  click: () => void;
+	click: () => void;
 }
 
 export const Button: FC<ButtonProps> = ({ click }) => (
-  <ButtonEl
-    onClick={click}
-    type="submit"
-    variant="contained"
-    endIcon={<SendIcon />}
-  >
-    Send message
-  </ButtonEl>
+	<ButtonEl
+		onClick={click}
+		type="submit"
+		variant="contained"
+	>
+		Send message
+	</ButtonEl>
 );

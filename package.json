@@ -22,7 +22,7 @@
 		"loki:update": "npm run build-storybook && loki update --requireReference --reactUri file:./storybook-static",
 		"loki:approve": "loki approve",
 		"loki:test": "npm run build-storybook && loki test --requireReference --reactUri file:./storybook-static",
-		"chromatic": "npx chromatic --project-token=4b9b1cdcda84"
+		"chromatic": "npx chromatic --project-token=f1a90dbdef7f"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.18.2",
@@ -74,10 +74,8 @@
 		"@babel/preset-typescript": "^7.17.12",
 		"@emotion/react": "^11.9.0",
 		"@emotion/styled": "^11.8.1",
-		"@mui/icons-material": "^5.8.3",
 		"@mui/material": "^5.8.2",
 		"@mui/styled-engine-sc": "^5.8.0",
-		"gh-pages": "^4.0.0",
 		"identity-obj-proxy": "^3.0.0",
 		"nanoid": "^3.3.4",
 		"prop-types": "^15.8.1",

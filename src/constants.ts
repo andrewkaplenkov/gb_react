@@ -1,6 +1,6 @@
-import { AUTHORS } from './common-types';
+import { Authors } from './common-types';
 
 export const author = {
-  user: AUTHORS.USER,
-  bot: AUTHORS.BOT,
+	user: Authors.USER,
+	bot: Authors.BOT,
 };

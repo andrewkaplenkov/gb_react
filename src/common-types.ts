@@ -1,18 +1,17 @@
-export enum AUTHORS {
-  USER = 'USER',
-  BOT = 'BOT',
+export enum Authors {
+	USER = 'USER',
+	BOT = 'BOT',
 }
-
 export interface Message {
-  author: AUTHORS;
-  text: string;
-  id?: number;
+	author: Authors;
+	text: string;
 }
 
-export interface UserMessage {
-  id: number;
-  name: string;
-  text: string;
+export interface Messages {
+	[key: string]: Message[];
 }
 
-export type Chat = UserMessage[];
+export interface Chat {
+	id: string;
+	name: string;
+}
