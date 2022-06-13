@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button } from './Components';
 import style from './Form.module.css';
 import { FC } from 'react';
-import { AUTHORS, Message } from 'src/common-types';
+import { Authors, Message } from 'src/common-types';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 
@@ -16,7 +16,7 @@ export const Form: FC<FormProps> = ({ addMessage }) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     addMessage({
-      author: AUTHORS.USER,
+      author: Authors.USER,
       text,
     });
     setText('');
