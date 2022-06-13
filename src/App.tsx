@@ -8,9 +8,8 @@ import { ChatPage } from './pages/ChatPage';
 import { Main } from './pages/Main';
 import { Profile } from './pages/Profile';
 
-
 const defaultMessages: Messages = {
-	"Default chat": [],
+	'Default chat': [],
 };
 
 export const App: FC = () => {
@@ -39,6 +38,12 @@ export const App: FC = () => {
 		});
 	};
 
+	const deleteChat = (name: string) => {
+		const newMesssages = { ...messages };
+		delete newMesssages[name];
+		setMesseges(newMesssages);
+	}
+
 	return (
 		<BrowserRouter>
 			<Routes>
@@ -48,7 +53,7 @@ export const App: FC = () => {
 					<Route path="chats">
 						<Route
 							index
-							element={<ChatList chats={chats} addChat={addChat} />}
+							element={<ChatList chats={chats} addChat={addChat} deleteChat={deleteChat} />}
 						/>
 						<Route
 							path=":chatId"
@@ -58,6 +63,7 @@ export const App: FC = () => {
 									addChat={addChat}
 									messages={messages}
 									addMessage={addMessage}
+									deleteChat={deleteChat}
 								/>
 							}
 						/>

@@ -13,13 +13,15 @@ interface ChatPageProps {
 	addChat: (chat: Chat) => void;
 	messages: Messages;
 	addMessage: (id: string, msg: Message) => void;
+	deleteChat: (name: string) => void;
 }
 
 export const ChatPage: FC<ChatPageProps> = ({
 	chats,
 	addChat,
 	messages,
-	addMessage
+	addMessage,
+	deleteChat,
 }) => {
 	const { chatId } = useParams();
 
@@ -43,15 +45,13 @@ export const ChatPage: FC<ChatPageProps> = ({
 	}, [chatId, messages]);
 
 	const handleAddMessage = useCallback(
-		(mesasge: Message) => {
+		(message: Message) => {
 			if (chatId) {
-				addMessage(chatId, mesasge);
+				addMessage(chatId, message);
 			}
 		},
-		[chatId]
+		[chatId, addMessage]
 	);
-
-
 
 	if (chatId && !messages[chatId]) {
 		return <Navigate to="/chats" replace />;
@@ -59,7 +59,7 @@ export const ChatPage: FC<ChatPageProps> = ({
 
 	return (
 		<>
-			<ChatList chats={chats} addChat={addChat} />
+			<ChatList chats={chats} addChat={addChat} deleteChat={deleteChat} />
 			<MessageList messages={chatId ? messages[chatId] : []} />
 			<Form addMessage={handleAddMessage} />
 		</>

@@ -18,9 +18,10 @@ import { Chat } from 'src/common-types';
 interface ChatListProps {
 	chats: Chat[];
 	addChat: (chat: Chat) => void;
+	deleteChat: (name: string) => void;
 }
 
-export const ChatList: FC<ChatListProps> = ({ chats, addChat }) => {
+export const ChatList: FC<ChatListProps> = ({ chats, addChat, deleteChat }) => {
 	const [value, setValue] = useState('');
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,7 +53,7 @@ export const ChatList: FC<ChatListProps> = ({ chats, addChat }) => {
 							<Link to={`/chats/${chat.name}`}>
 								<ListItemText primary={chat.name} />
 							</Link>
-							<Button >
+							<Button onClick={() => deleteChat(chat.name)}>
 								<ClearIcon />
 							</Button>
 						</ListItem>
