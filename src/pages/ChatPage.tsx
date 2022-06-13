@@ -15,8 +15,12 @@ interface ChatPageProps {
 	addMessage: (id: string, msg: Message) => void;
 }
 
-export const ChatPage: FC<ChatPageProps> = ({ chats, addChat, messages, addMessage, }) => {
-
+export const ChatPage: FC<ChatPageProps> = ({
+	chats,
+	addChat,
+	messages,
+	addMessage
+}) => {
 	const { chatId } = useParams();
 
 	useEffect(() => {
@@ -46,6 +50,8 @@ export const ChatPage: FC<ChatPageProps> = ({ chats, addChat, messages, addMessa
 		},
 		[chatId]
 	);
+
+
 
 	if (chatId && !messages[chatId]) {
 		return <Navigate to="/chats" replace />;

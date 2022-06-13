@@ -9,8 +9,9 @@ import {
 	ListItem,
 	ListItemAvatar,
 	ListItemText,
-	TextField
+	TextField,
 } from '@mui/material';
+import ClearIcon from '@mui/icons-material/Clear';
 import { Link } from 'react-router-dom';
 import { Chat } from 'src/common-types';
 
@@ -51,6 +52,9 @@ export const ChatList: FC<ChatListProps> = ({ chats, addChat }) => {
 							<Link to={`/chats/${chat.name}`}>
 								<ListItemText primary={chat.name} />
 							</Link>
+							<Button >
+								<ClearIcon />
+							</Button>
 						</ListItem>
 						<Divider variant="inset" component="li" />
 					</>
@@ -63,7 +67,8 @@ export const ChatList: FC<ChatListProps> = ({ chats, addChat }) => {
 					'& > :not(style)': { m: 1, width: '25ch' },
 				}}
 				noValidate
-				autoComplete="off">
+				autoComplete="off"
+			>
 				<TextField
 					type="text"
 					value={value}
@@ -71,7 +76,8 @@ export const ChatList: FC<ChatListProps> = ({ chats, addChat }) => {
 					id="outlined-basic"
 					label="New chat"
 					variant="outlined"
-					size='small' />
+					size="small"
+				/>
 				<Button>Create Chat</Button>
 			</Box>
 		</>

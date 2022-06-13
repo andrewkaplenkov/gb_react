@@ -8,25 +8,20 @@ import { ChatPage } from './pages/ChatPage';
 import { Main } from './pages/Main';
 import { Profile } from './pages/Profile';
 
-const defaultChats: Chat[] = [
-	{
-		id: nanoid(),
-		name: 'Default chat',
-	},
-];
 
 const defaultMessages: Messages = {
-	default: [],
+	"Default chat": [],
 };
 
 export const App: FC = () => {
 	const [messages, setMesseges] = useState(defaultMessages);
 
-	const chats = useMemo(() =>
-		Object.keys(messages).map((chat) => ({
-			id: nanoid(),
-			name: chat,
-		})),
+	const chats = useMemo(
+		() =>
+			Object.keys(messages).map((chat) => ({
+				id: nanoid(),
+				name: chat,
+			})),
 		[Object.keys(messages).length]
 	);
 
@@ -53,10 +48,7 @@ export const App: FC = () => {
 					<Route path="chats">
 						<Route
 							index
-							element={
-								<ChatList
-									chats={chats}
-									addChat={addChat} />}
+							element={<ChatList chats={chats} addChat={addChat} />}
 						/>
 						<Route
 							path=":chatId"
