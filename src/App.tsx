@@ -8,21 +8,21 @@ import { Main } from './pages/Main';
 import { Profile } from './pages/Profile';
 import { store } from './store';
 
-export const App: FC = () =>
-	<Provider store={store}>
-		<BrowserRouter>
-			<Routes>
-				<Route path="/" element={<Header />}>
-					<Route index element={<Main />} />
-					<Route path="profile" element={<Profile />} />
-					<Route path="chats">
-						<Route index element={<ChatList />} />
-						<Route path=":chatId" element={<ChatPage />} />
-					</Route>
-				</Route>
+export const App: FC = () => (
+  <Provider store={store}>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Header />}>
+          <Route index element={<Main />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="chats">
+            <Route index element={<ChatList />} />
+            <Route path=":chatId" element={<ChatPage />} />
+          </Route>
+        </Route>
 
-				<Route path="*" element={<h2>404 page</h2>} />
-			</Routes>
-		</BrowserRouter>
-	</Provider>;
-
+        <Route path="*" element={<h2>404 page</h2>} />
+      </Routes>
+    </BrowserRouter>
+  </Provider>
+);
