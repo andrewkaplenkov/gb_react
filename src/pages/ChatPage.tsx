@@ -1,57 +1,35 @@
-import { FC, useCallback } from 'react';
+import { FC } from 'react';
 import { useEffect } from 'react';
 import { Form } from 'components/Form/Form';
 import { MessageList } from 'components/MessageList';
-import { author } from 'src/constants';
-import { Message, Messages } from 'src/common-types';
 import { ChatList } from 'src/components/Chats';
-import { Chat } from 'src/common-types';
 import { Navigate, useParams } from 'react-router-dom';
+import { shallowEqual, useSelector } from 'react-redux';
+import { selectMessages } from 'src/store/messages/selectors';
 
-interface ChatPageProps {
-  chats: Chat[];
-  addChat: (chat: Chat) => void;
-  messages: Messages;
-  addMessage: (id: string, msg: Message) => void;
-  deleteChat: (name: string) => void;
-}
-
-export const ChatPage: FC<ChatPageProps> = ({
-  chats,
-  addChat,
-  messages,
-  addMessage,
-  deleteChat,
-}) => {
+export const ChatPage: FC = () => {
   const { chatId } = useParams();
 
-  useEffect(() => {
-    if (
-      chatId &&
-      messages[chatId]?.length > 0 &&
-      messages[chatId][messages[chatId].length - 1].author === author.user
-    ) {
-      const timeout = setTimeout(() => {
-        addMessage(chatId, {
-          author: author.bot,
-          text: 'Response from Bot',
-        });
-      }, 1000);
+  const messages = useSelector(selectMessages, shallowEqual);
 
-      return () => {
-        clearTimeout(timeout);
-      };
-    }
-  }, [chatId, messages]);
+  //   useEffect(() => {
+  //     if (
+  //       chatId &&
+  //       messages[chatId]?.length > 0 &&
+  //       messages[chatId][messages[chatId].length - 1].author === author.user
+  //     ) {
+  //       const timeout = setTimeout(() => {
+  //         addMessage(chatId, {
+  //           author: author.bot,
+  //           text: 'Response from Bot',
+  //         });
+  //       }, 1000);
 
-  const handleAddMessage = useCallback(
-    (message: Message) => {
-      if (chatId) {
-        addMessage(chatId, message);
-      }
-    },
-    [chatId, addMessage]
-  );
+  //       return () => {
+  //         clearTimeout(timeout);
+  //       };
+  //     }
+  //   }, [chatId, messages]);
 
   if (chatId && !messages[chatId]) {
     return <Navigate to="/chats" replace />;
@@ -59,9 +37,9 @@ export const ChatPage: FC<ChatPageProps> = ({
 
   return (
     <>
-      <ChatList chats={chats} addChat={addChat} deleteChat={deleteChat} />
+      <ChatList />
       <MessageList messages={chatId ? messages[chatId] : []} />
-      <Form addMessage={handleAddMessage} />
+      <Form />
     </>
   );
 };

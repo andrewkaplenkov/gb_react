@@ -1,15 +1,13 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeName, toggleProfile } from 'src/store/profile/actions';
-import { ProfileState } from 'src/store/profile/reducer';
+import { selectName, selectVisible } from './../store/profile/selectors';
 
 export const Profile: FC = () => {
-  const visible = useSelector((state: ProfileState) => state.visible);
-  const name = useSelector((state: ProfileState) => state.name);
+  const visible = useSelector(selectVisible);
+  const name = useSelector(selectName);
 
   const dispatch = useDispatch();
-
-  // const [value, setValue] = useState('');
 
   return (
     <>

@@ -2,23 +2,24 @@ import { useState } from 'react';
 import { Button } from './Components';
 import style from './Form.module.css';
 import { FC } from 'react';
-import { Authors, Message } from 'src/common-types';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
+import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { addMessage } from 'src/store/messages/actions';
 
-interface FormProps {
-  addMessage: (msg: Message) => void;
-}
-
-export const Form: FC<FormProps> = ({ addMessage }) => {
+export const Form: FC = () => {
   const [text, setText] = useState('');
+
+  const dispatch = useDispatch();
+  const { chatId } = useParams();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    addMessage({
-      author: Authors.USER,
-      text,
-    });
+    if (chatId) {
+      dispatch(addMessage(chatId, text));
+    }
+
     setText('');
   };
 
