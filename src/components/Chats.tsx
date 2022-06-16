@@ -1,5 +1,4 @@
 import { FC, useState } from 'react';
-import { nanoid } from 'nanoid';
 import {
   Avatar,
   Box,
@@ -13,30 +12,25 @@ import {
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 import { Link } from 'react-router-dom';
-import { Chat } from 'src/common-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { addChat, deleteChat } from 'src/store/messages/actions';
+import { selectChats } from 'src/store/messages/selectors';
 
-interface ChatListProps {
-  chats: Chat[];
-  addChat: (chat: Chat) => void;
-  deleteChat: (name: string) => void;
-}
-
-export const ChatList: FC<ChatListProps> = ({ chats, addChat, deleteChat }) => {
+export const ChatList: FC = () => {
   const [value, setValue] = useState('');
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
-  };
+  const dispatch = useDispatch();
+
+  const chats = useSelector(
+    selectChats,
+    (prev, next) => prev.length === next.length
+  );
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (value) {
-      addChat({
-        id: nanoid(),
-        name: value,
-      });
-
+      dispatch(addChat(value));
       setValue('');
     }
   };
@@ -53,7 +47,7 @@ export const ChatList: FC<ChatListProps> = ({ chats, addChat, deleteChat }) => {
               <Link to={`/chats/${chat.name}`}>
                 <ListItemText primary={chat.name} />
               </Link>
-              <Button onClick={() => deleteChat(chat.name)}>
+              <Button onClick={() => dispatch(deleteChat(chat.name))}>
                 <ClearIcon />
               </Button>
             </ListItem>
@@ -73,7 +67,7 @@ export const ChatList: FC<ChatListProps> = ({ chats, addChat, deleteChat }) => {
         <TextField
           type="text"
           value={value}
-          onChange={handleChange}
+          onChange={(e) => setValue(e.target.value)}
           id="outlined-basic"
           label="New chat"
           variant="outlined"
