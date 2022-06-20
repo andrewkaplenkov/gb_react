@@ -6,7 +6,7 @@ import {
   ListItemText,
 } from '@mui/material';
 import { FC } from 'react';
-import { Message } from 'src/store/messages/reducer';
+import { Message } from 'src/common-types';
 
 interface MessageListProps {
   messages: Message[];
@@ -14,8 +14,8 @@ interface MessageListProps {
 
 export const MessageList: FC<MessageListProps> = ({ messages }) => (
   <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-    {messages.map((message) => (
-      <ListItem key={message.id}>
+    {messages.map((message, idx) => (
+      <ListItem key={idx}>
         <ListItemAvatar>
           <Avatar alt={message.author} src="/static/images/avatar/1.jpg" />
         </ListItemAvatar>
