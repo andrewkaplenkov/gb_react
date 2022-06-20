@@ -7,13 +7,13 @@ import { AppRouter } from './components/AppRouter/AppRouter';
 import { store, persistor } from './store';
 
 export const App: FC = () => (
-	<Provider store={store}>
-		<PersistGate persistor={persistor}>
-			<Suspense fallback={<div>Loading...</div>}>
-				<BrowserRouter>
-					<AppRouter />
-				</BrowserRouter>
-			</Suspense>
-		</PersistGate>
-	</Provider>
+  <Provider store={store}>
+    <PersistGate persistor={persistor}>
+      <Suspense fallback={<div>Loading...</div>}>
+        <BrowserRouter>
+          <AppRouter />
+        </BrowserRouter>
+      </Suspense>
+    </PersistGate>
+  </Provider>
 );

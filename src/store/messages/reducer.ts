@@ -7,49 +7,49 @@ import { MessageActions } from './types';
 
 type MessageWithId = { id: string } & Message;
 export interface MessagesState {
-	[key: string]: MessageWithId[];
+  [key: string]: MessageWithId[];
 }
 
 const initialMessages: MessagesState = {
-	default: [
-		{
-			id: '1',
-			author: author.bot,
-			text: 'Hello to this chat',
-		},
-	],
+  default: [
+    {
+      id: '1',
+      author: author.bot,
+      text: 'Hello to this chat',
+    },
+  ],
 };
 
 export const messageReducer: Reducer<MessagesState, MessageActions> = (
-	state = initialMessages,
-	action
+  state = initialMessages,
+  action
 ) => {
-	switch (action.type) {
-		case ADD_CHAT: {
-			return {
-				...state,
-				[action.newChat]: [],
-			};
-		}
-		case DELETE_CHAT: {
-			const chats = { ...state };
-			delete chats[action.chatName];
-			return chats;
-		}
-		case ADD_MESSAGE: {
-			return {
-				...state,
-				[action.chatName]: [
-					...state[action.chatName],
-					{
-						id: nanoid(),
-						author: action.message.author,
-						text: action.message.text,
-					},
-				],
-			};
-		}
-		default:
-			return state;
-	}
+  switch (action.type) {
+    case ADD_CHAT: {
+      return {
+        ...state,
+        [action.newChat]: [],
+      };
+    }
+    case DELETE_CHAT: {
+      const chats = { ...state };
+      delete chats[action.chatName];
+      return chats;
+    }
+    case ADD_MESSAGE: {
+      return {
+        ...state,
+        [action.chatName]: [
+          ...state[action.chatName],
+          {
+            id: nanoid(),
+            author: action.message.author,
+            text: action.message.text,
+          },
+        ],
+      };
+    }
+    default:
+      return state;
+  }
 };
