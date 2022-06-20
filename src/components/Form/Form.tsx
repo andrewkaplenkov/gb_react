@@ -6,44 +6,46 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { addMessage } from 'src/store/messages/actions';
+import { addMessageWithReply } from 'src/store/messages/actions';
+import { ThunkDispatch } from 'redux-thunk';
+import { Authors } from 'src/common-types';
 
 export const Form: FC = () => {
-  const [text, setText] = useState('');
+	const [text, setText] = useState('');
 
-  const dispatch = useDispatch();
-  const { chatId } = useParams();
+	const dispatch = useDispatch<ThunkDispatch<any, void, any>>();
+	const { chatId } = useParams();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (chatId) {
-      dispatch(addMessage(chatId, text));
-    }
+	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		if (chatId) {
+			dispatch(addMessageWithReply(chatId, { author: Authors.USER, text }));
+		}
 
-    setText('');
-  };
+		setText('');
+	};
 
-  const buttonClick = () => null;
+	const buttonClick = () => null;
 
-  return (
-    <Box
-      component="form"
-      data-testid="form"
-      className={style.form}
-      onSubmit={handleSubmit}
-    >
-      <TextField
-        id="outlined-basic"
-        variant="outlined"
-        onChange={(e) => setText(e.target.value)}
-        type="text"
-        placeholder="Write message"
-        className={style.input}
-        value={text}
-        size="small"
-        autoFocus
-      />
-      <Button click={buttonClick} />
-    </Box>
-  );
+	return (
+		<Box
+			component="form"
+			data-testid="form"
+			className={style.form}
+			onSubmit={handleSubmit}
+		>
+			<TextField
+				id="outlined-basic"
+				variant="outlined"
+				onChange={(e) => setText(e.target.value)}
+				type="text"
+				placeholder="Write message"
+				className={style.input}
+				value={text}
+				size="small"
+				autoFocus
+			/>
+			<Button click={buttonClick} />
+		</Box>
+	);
 };

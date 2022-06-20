@@ -1,60 +1,55 @@
 import { nanoid } from 'nanoid';
 import { Reducer } from 'redux';
-import { Authors } from 'src/common-types';
+import { Message } from 'src/common-types';
 import { author } from 'src/constants';
 import { ADD_CHAT, ADD_MESSAGE, DELETE_CHAT } from './actions';
 import { MessageActions } from './types';
 
-export interface Message {
-  id: string;
-  author: Authors;
-  text: string;
-}
-
+type MessageWithId = { id: string } & Message;
 export interface MessagesState {
-  [key: string]: Message[];
+	[key: string]: MessageWithId[];
 }
 
 const initialMessages: MessagesState = {
-  default: [
-    {
-      id: '1',
-      author: author.bot,
-      text: 'Hello to this chat',
-    },
-  ],
+	default: [
+		{
+			id: '1',
+			author: author.bot,
+			text: 'Hello to this chat',
+		},
+	],
 };
 
 export const messageReducer: Reducer<MessagesState, MessageActions> = (
-  state = initialMessages,
-  action
+	state = initialMessages,
+	action
 ) => {
-  switch (action.type) {
-    case ADD_CHAT: {
-      return {
-        ...state,
-        [action.newChat]: [],
-      };
-    }
-    case DELETE_CHAT: {
-      const chats = { ...state };
-      delete chats[action.chatName];
-      return chats;
-    }
-    case ADD_MESSAGE: {
-      return {
-        ...state,
-        [action.chatName]: [
-          ...state[action.chatName],
-          {
-            id: nanoid(),
-            author: author.user,
-            text: action.text,
-          },
-        ],
-      };
-    }
-    default:
-      return state;
-  }
+	switch (action.type) {
+		case ADD_CHAT: {
+			return {
+				...state,
+				[action.newChat]: [],
+			};
+		}
+		case DELETE_CHAT: {
+			const chats = { ...state };
+			delete chats[action.chatName];
+			return chats;
+		}
+		case ADD_MESSAGE: {
+			return {
+				...state,
+				[action.chatName]: [
+					...state[action.chatName],
+					{
+						id: nanoid(),
+						author: action.message.author,
+						text: action.message.text,
+					},
+				],
+			};
+		}
+		default:
+			return state;
+	}
 };
