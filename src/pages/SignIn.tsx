@@ -1,25 +1,27 @@
 import { FC, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { auth } from 'src/store/profile/slice';
 import { useNavigate } from 'react-router-dom';
+import { signIn } from 'src/services/firebase';
 
 export const SignIn: FC = () => {
-	const [login, setLogin] = useState('');
+	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const [error, setError] = useState(false);
+	const [error, setError] = useState('');
+	const [loading, setLoagin] = useState(false);
 
-	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		setError(false);
 
-		if (login === 'gb' && password === 'gb') {
-			dispatch(auth(true));
-			navigate('/', { replace: true });
-		} else {
-			setError(true);
+		try {
+			setError('');
+			setLoagin(true);
+			await signIn(email, password);
+			navigate('/chats', { replace: true });
+		} catch (err) {
+			setError((err as Error).message);
+		} finally {
+			setLoagin(false);
 		}
 	};
 
@@ -29,9 +31,9 @@ export const SignIn: FC = () => {
 			<form onSubmit={handleSubmit}>
 				<p>Логин:</p>
 				<input
-					type="text"
-					value={login}
-					onChange={(e) => setLogin(e.target.value)}
+					type="email"
+					value={email}
+					onChange={(e) => setEmail(e.target.value)}
 				/>
 				<p>Пароль:</p>
 				<input
@@ -42,6 +44,7 @@ export const SignIn: FC = () => {
 				<br />
 				<button>login</button>
 			</form>
+			{loading && <div>loading...</div>}
 			{error && <p style={{ color: 'red' }}>Логин или пароль не верны</p>}
 		</>
 	);
