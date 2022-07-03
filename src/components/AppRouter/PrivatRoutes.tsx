@@ -4,15 +4,15 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { selectAuth } from '../../store/profile/selectors';
 
 interface PrivateRouteProps {
-	component?: JSX.Element;
+  component?: JSX.Element;
 }
 
 export const PrivateRoute: FC<PrivateRouteProps> = ({ component }) => {
-	const isAuth = useSelector(selectAuth);
+  const isAuth = useSelector(selectAuth);
 
-	if (!isAuth) {
-		return <Navigate to="/signin" />;
-	}
+  if (!isAuth) {
+    return <Navigate to="/signin" />;
+  }
 
-	return component ? component : <Outlet />;
+  return component ? component : <Outlet />;
 };

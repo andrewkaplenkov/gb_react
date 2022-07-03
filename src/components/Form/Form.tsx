@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { Button } from './Components';
 import style from './Form.module.css';
 import { FC } from 'react';
@@ -8,8 +8,10 @@ import { useParams } from 'react-router-dom';
 import { Authors } from 'src/common-types';
 import { ThunkDispatch } from 'redux-thunk';
 import { Box, TextField } from '@mui/material';
+import { push } from 'firebase/database';
+import { getMessageListById } from 'src/services/firebase';
 
-export const Form: FC = () => {
+export const Form: FC = memo(() => {
 	const [text, setText] = useState('');
 
 	const dispatch = useDispatch<ThunkDispatch<any, void, any>>();
@@ -18,12 +20,10 @@ export const Form: FC = () => {
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		if (chatId) {
-			dispatch(
-				addMessageWithReply({
-					chatName: chatId,
-					message: { author: Authors.USER, text },
-				})
-			);
+			push(getMessageListById(chatId), {
+				text,
+				author: Authors.USER,
+			});
 		}
 
 		setText('');
@@ -52,4 +52,4 @@ export const Form: FC = () => {
 			<Button click={buttonClick} />
 		</Box>
 	);
-};
+});

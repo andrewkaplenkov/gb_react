@@ -15,24 +15,45 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addChat, deleteChat } from 'src/store/messages/slice';
 import { selectChats } from 'src/store/messages/selectors';
+import { push, remove, set } from 'firebase/database';
+import {
+	getChatById,
+	getMessageListById,
+	messagesRef,
+} from 'src/services/firebase';
 
-export const ChatList: FC = () => {
+interface ChatListProps {
+	chats: any[];
+	messagesDB: any;
+}
+
+
+export const ChatList: FC<ChatListProps> = ({ chats, messagesDB }) => {
 	const [value, setValue] = useState('');
 
-	const dispatch = useDispatch();
-
-	const chats = useSelector(
-		selectChats,
-		(prev, next) => prev.length === next.length
-	);
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
 		if (value) {
-			dispatch(addChat({ name: value }));
+			set(messagesRef, {
+				...messagesDB,
+				[value]: {
+					name: value,
+				},
+			});
+
+			push(getMessageListById(value), {
+				text: 'Chat has been created',
+				author: 'Admin',
+			});
+
 			setValue('');
 		}
+	};
+
+	const handleDeleteChat = (chatId: string) => {
+		remove(getChatById(chatId));
 	};
 
 	return (
@@ -47,7 +68,7 @@ export const ChatList: FC = () => {
 							<Link to={`/chats/${chat.name}`}>
 								<ListItemText primary={chat.name} />
 							</Link>
-							<Button onClick={() => dispatch(deleteChat({ name: chat.name }))}>
+							<Button onClick={() => handleDeleteChat(chat.id)}>
 								<ClearIcon />
 							</Button>
 						</ListItem>
